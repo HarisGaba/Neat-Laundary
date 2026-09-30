@@ -1,0 +1,6 @@
+{
+  "routes": [
+    {"path":"/","title":"Neat Laundry | Premium Laundry & Dry Cleaning"},
+    {"path":"/tracking.html","title":"Track Your Neat Laundry Order"}
+  ]
+}
