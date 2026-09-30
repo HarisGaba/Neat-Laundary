@@ -1,0 +1,13 @@
+{
+  "name": "neat-laundary",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "homepage": "https://HarisGaba.github.io/Neat-Laundary/",
+  "scripts": {
+    "deploy": "gh-pages -d ."
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
