@@ -1,0 +1,9 @@
+const demoOrders={
+  'NEAT-1042':{service:'Wash & Fold · 8 pieces',eta:'Today, 6:00 – 8:00 PM',start:1},
+  'NEAT-2088':{service:'Dry Clean & Iron · 4 pieces',eta:'Tomorrow, 10:00 AM – 12:00 PM',start:2},
+  'NEAT-3156':{service:'Premium Care · 3 pieces',eta:'Tomorrow, 3:00 – 5:00 PM',start:0}
+};
+const input=document.querySelector('#order-id');const submit=document.querySelector('#track-submit');const result=document.querySelector('#tracking-result');const empty=document.querySelector('#tracking-empty');const title=document.querySelector('#tracking-title');const subtitle=document.querySelector('#tracking-subtitle');const status=document.querySelector('#tracking-status');const eta=document.querySelector('#tracking-eta');const steps=[...document.querySelectorAll('.tracking-step')];let timer;
+const labels=['Pickup confirmed','Cleaning in progress','Quality check','Ready for delivery'];
+function renderTracking(id,advance=false){const normalized=(id||'NEAT-1042').trim().toUpperCase();const order=demoOrders[normalized]||{service:'Wash & Fold · custom order',eta:'Today, 6:00 – 8:00 PM',start:1};let current=Number(result.dataset.current||order.start);if(advance)current=Math.min(current+1,3);result.dataset.current=current;title.textContent=`Order ${normalized}`;subtitle.textContent=order.service;status.textContent=labels[current];eta.textContent=order.eta;steps.forEach((step,index)=>{step.classList.toggle('is-done',index<current);step.classList.toggle('is-active',index===current);step.querySelector('span').textContent=index<current?'✓':String(index+1).padStart(2,'0')});result.hidden=false;empty.hidden=true;clearInterval(timer);timer=setInterval(()=>renderTracking(normalized,true),8000)}
+function track(){renderTracking(input.value)}submit.addEventListener('click',track);input.addEventListener('keydown',event=>{if(event.key==='Enter')track()});const initial=new URLSearchParams(location.search).get('order');if(initial){input.value=initial;track()}
